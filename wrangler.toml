@@ -1,0 +1,17 @@
+name = "tabiji-x402-safety-api"
+main = "src/index.ts"
+compatibility_date = "2026-05-05"
+compatibility_flags = ["nodejs_compat"]
+
+# Route will work once the Cloudflare account is authenticated and the tabiji.ai zone is available.
+routes = [
+  { pattern = "x402.tabiji.ai/*", zone_name = "tabiji.ai" }
+]
+
+[vars]
+SERVICE_NAME = "Tabiji Scam & Safety Briefs"
+SERVICE_VERSION = "0.1.0"
+PAY_TO_ADDRESS = "0x59959450bb3DA79A8bC07CC078696D6CBA3bEB4a"
+X402_NETWORK = "eip155:8453"
+X402_FACILITATOR_URL = "https://facilitator.x402.org"
+TABIJI_API_BASE = "https://tabiji.ai/api/v1"
