@@ -43,19 +43,29 @@ Without x402 payment this should return HTTP `402 Payment Required`.
 
 ## Deploy
 
-Requires Cloudflare auth for the `tabiji.ai` zone.
+Requires Cloudflare auth for the `tabiji.ai` zone and Coinbase CDP facilitator credentials for production x402 verification/settlement.
 
 ```bash
 npm install
 npm run typecheck
+
+# Cloudflare deploy auth, set outside Slack/secrets-safe shell only:
+export CLOUDFLARE_API_TOKEN=...
+export CLOUDFLARE_ACCOUNT_ID=...
+
+# Coinbase x402 facilitator auth, stored as Worker secrets:
+printf '%s' "$CDP_API_KEY_ID" | wrangler secret put CDP_API_KEY_ID
+printf '%s' "$CDP_API_KEY_SECRET" | wrangler secret put CDP_API_KEY_SECRET
+
 npm run deploy
 ```
 
-If deploying from a clean machine:
+If deploying from an interactive machine:
 
 ```bash
 wrangler login
-# or configure CLOUDFLARE_API_TOKEN/CLOUDFLARE_ACCOUNT_ID securely
+wrangler secret put CDP_API_KEY_ID
+wrangler secret put CDP_API_KEY_SECRET
 npm run deploy
 ```
 

@@ -275,7 +275,7 @@ app.post("/dev/scam-brief", async (c) => {
   return c.json(await buildBrief(c.env, request, "scam"));
 });
 
-app.use(paymentMiddleware(paidRoutes, resourceServer, undefined, undefined, false));
+app.use(paymentMiddleware(paidRoutes, resourceServer));
 
 app.post("/v1/scam-brief", async (c) => {
   const request = await parseBriefRequest(c.req.raw);
