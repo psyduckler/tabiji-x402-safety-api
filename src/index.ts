@@ -4,7 +4,8 @@ import { paymentMiddleware, x402ResourceServer } from "@x402/hono";
 import { HTTPFacilitatorClient } from "@x402/core/server";
 import { ExactEvmScheme } from "@x402/evm/exact/server";
 import { declareDiscoveryExtension } from "@x402/extensions/bazaar";
-import { facilitator } from "@coinbase/x402";
+import { createFacilitatorConfig } from "@coinbase/x402";
+import type { MiddlewareHandler } from "hono";
 
 type Bindings = {
   SERVICE_NAME?: string;
@@ -14,6 +15,8 @@ type Bindings = {
   X402_FACILITATOR_URL?: string;
   TABIJI_API_BASE?: string;
   DEBUG_FREE_PREVIEW?: string;
+  CDP_API_KEY_ID?: string;
+  CDP_API_KEY_SECRET?: string;
 };
 
 type BriefRequest = {
@@ -32,11 +35,18 @@ const PAY_TO_ADDRESS = "0x59959450bb3DA79A8bC07CC078696D6CBA3bEB4a";
 const X402_NETWORK = "eip155:8453";
 const X402_FACILITATOR_URL = "https://facilitator.x402.org";
 
-const facilitatorClient = new HTTPFacilitatorClient(facilitator);
-const resourceServer = new x402ResourceServer(facilitatorClient).register(
-  X402_NETWORK,
-  new ExactEvmScheme(),
-);
+function createResourceServer(env: Bindings) {
+  const facilitatorConfig = createFacilitatorConfig(env.CDP_API_KEY_ID, env.CDP_API_KEY_SECRET);
+  const facilitatorClient = new HTTPFacilitatorClient(facilitatorConfig);
+  return new x402ResourceServer(facilitatorClient).register(
+    X402_NETWORK,
+    new ExactEvmScheme(),
+  );
+}
+
+function paymentMiddlewareForEnv(env: Bindings): MiddlewareHandler {
+  return paymentMiddleware(paidRoutes, createResourceServer(env));
+}
 
 const briefInputSchema = {
   type: "object",
@@ -275,7 +285,7 @@ app.post("/dev/scam-brief", async (c) => {
   return c.json(await buildBrief(c.env, request, "scam"));
 });
 
-app.use(paymentMiddleware(paidRoutes, resourceServer));
+app.use(async (c, next) => paymentMiddlewareForEnv(c.env)(c, next));
 
 app.post("/v1/scam-brief", async (c) => {
   const request = await parseBriefRequest(c.req.raw);
