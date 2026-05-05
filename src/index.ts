@@ -106,15 +106,13 @@ const paidRoutes = {
     mimeType: "application/json",
     extensions: {
       ...declareDiscoveryExtension({
-        toolName: "tabiji_scam_brief",
-        description:
-          "Generate a structured tourist scam brief for a destination, including likely scams, avoidance checklist, response steps, and source URLs.",
         input: {
           destination: "Barcelona",
           travelerProfile: "US first-time visitor age 45+",
           format: "agent_brief",
         },
         inputSchema: briefInputSchema,
+        bodyType: "json",
         output: {
           example: {
             service: SERVICE_NAME,
@@ -149,15 +147,13 @@ const paidRoutes = {
     mimeType: "application/json",
     extensions: {
       ...declareDiscoveryExtension({
-        toolName: "tabiji_safety_brief",
-        description:
-          "Generate a country/destination safety brief with advisory level, alerts, practical advice, and source URLs.",
         input: {
           destination: "Japan",
           travelerProfile: "older American couple",
           includeAlerts: true,
         },
         inputSchema: briefInputSchema,
+        bodyType: "json",
         output: {
           example: {
             service: SERVICE_NAME,
@@ -186,9 +182,6 @@ const paidRoutes = {
     mimeType: "application/json",
     extensions: {
       ...declareDiscoveryExtension({
-        toolName: "tabiji_travel_risk_brief",
-        description:
-          "Generate a combined scam/safety/alert brief for itinerary planners, travel assistants, and content agents.",
         input: {
           destination: "Rome",
           travelerProfile: "US first-time visitor age 45+",
@@ -196,6 +189,7 @@ const paidRoutes = {
           format: "agent_brief",
         },
         inputSchema: briefInputSchema,
+        bodyType: "json",
         output: {
           example: {
             service: SERVICE_NAME,
