@@ -3,7 +3,7 @@ import { cors } from "hono/cors";
 import { paymentMiddleware, x402ResourceServer } from "@x402/hono";
 import { HTTPFacilitatorClient } from "@x402/core/server";
 import { ExactEvmScheme } from "@x402/evm/exact/server";
-import { declareDiscoveryExtension } from "@x402/extensions/bazaar";
+import { bazaarResourceServerExtension, declareDiscoveryExtension } from "@x402/extensions/bazaar";
 import { createFacilitatorConfig } from "@coinbase/x402";
 import type { MiddlewareHandler } from "hono";
 
@@ -38,10 +38,12 @@ const X402_FACILITATOR_URL = "https://facilitator.x402.org";
 function createResourceServer(env: Bindings) {
   const facilitatorConfig = createFacilitatorConfig(env.CDP_API_KEY_ID, env.CDP_API_KEY_SECRET);
   const facilitatorClient = new HTTPFacilitatorClient(facilitatorConfig);
-  return new x402ResourceServer(facilitatorClient).register(
-    X402_NETWORK,
-    new ExactEvmScheme(),
-  );
+  return new x402ResourceServer(facilitatorClient)
+    .register(
+      X402_NETWORK,
+      new ExactEvmScheme(),
+    )
+    .registerExtension(bazaarResourceServerExtension);
 }
 
 function paymentMiddlewareForEnv(env: Bindings): MiddlewareHandler {
