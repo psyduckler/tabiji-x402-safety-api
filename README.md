@@ -1,6 +1,6 @@
-# Tabiji x402 Scam & Safety API
+# Tabiji Travel Data x402 API
 
-Cloudflare Worker for x402-paid, deterministic Tabiji scam/safety briefs.
+Cloudflare Worker for x402-paid, deterministic Tabiji Travel Data briefs covering travel scams, destination safety, alerts, and practical travel risk.
 
 ## Production endpoints
 

@@ -1,7 +1,7 @@
 {
   "name": "tabiji-x402-safety-api",
   "version": "0.1.0",
-  "description": "x402-paid deterministic Tabiji travel scam and safety briefs on Cloudflare Workers.",
+  "description": "x402-paid deterministic Tabiji Travel Data briefs on Cloudflare Workers.",
   "private": false,
   "type": "module",
   "scripts": {
@@ -14,6 +14,7 @@
     "tabiji",
     "x402",
     "cloudflare-workers",
+    "travel-data",
     "travel-safety",
     "agentic-market"
   ],
