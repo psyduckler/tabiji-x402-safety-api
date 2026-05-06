@@ -9,7 +9,7 @@ routes = [
 ]
 
 [vars]
-SERVICE_NAME = "Tabiji Scam & Safety Briefs"
+SERVICE_NAME = "Tabiji Travel Data"
 SERVICE_VERSION = "0.1.0"
 PAY_TO_ADDRESS = "0x59959450bb3DA79A8bC07CC078696D6CBA3bEB4a"
 X402_NETWORK = "eip155:8453"

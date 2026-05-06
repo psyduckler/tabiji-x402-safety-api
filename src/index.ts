@@ -29,7 +29,7 @@ type BriefRequest = {
 type JsonRecord = Record<string, unknown>;
 
 const SERVICE_VERSION = "0.1.0";
-const SERVICE_NAME = "Tabiji Scam & Safety Briefs";
+const SERVICE_NAME = "Tabiji Travel Data";
 const TABIJI_API_BASE = "https://tabiji.ai/api/v1";
 const PAY_TO_ADDRESS = "0x59959450bb3DA79A8bC07CC078696D6CBA3bEB4a";
 const X402_NETWORK = "eip155:8453";
@@ -102,7 +102,7 @@ const paidRoutes = {
       maxTimeoutSeconds: 120,
     },
     description:
-      "Generate a deterministic, source-linked travel scam brief from Tabiji's curated scam/safety corpus.",
+      "Tabiji Travel Data: generate a deterministic, source-linked travel scam brief from Tabiji's curated travel data corpus.",
     mimeType: "application/json",
     extensions: {
       ...declareDiscoveryExtension({
@@ -143,7 +143,7 @@ const paidRoutes = {
       maxTimeoutSeconds: 120,
     },
     description:
-      "Generate a deterministic country/destination safety brief from Tabiji safety and alert data.",
+      "Tabiji Travel Data: generate a deterministic country/destination safety brief from Tabiji safety and alert data.",
     mimeType: "application/json",
     extensions: {
       ...declareDiscoveryExtension({
@@ -178,7 +178,7 @@ const paidRoutes = {
       maxTimeoutSeconds: 120,
     },
     description:
-      "Generate a combined Tabiji scam, safety, alert, and practical travel-risk brief for agents.",
+      "Tabiji Travel Data: generate a combined scam, safety, alert, and practical travel-risk brief for agents.",
     mimeType: "application/json",
     extensions: {
       ...declareDiscoveryExtension({
@@ -228,7 +228,7 @@ app.get("/v1/meta", (c) =>
     service: c.env.SERVICE_NAME ?? SERVICE_NAME,
     version: c.env.SERVICE_VERSION ?? SERVICE_VERSION,
     description:
-      "x402-paid deterministic Tabiji scam and safety briefs for agents. Free Tabiji API remains available at https://tabiji.ai/api/.",
+      "x402-paid deterministic Tabiji Travel Data briefs for agents, covering travel scams, destination safety, alerts, and practical travel risk. Free Tabiji API remains available at https://tabiji.ai/api/.",
     payTo: c.env.PAY_TO_ADDRESS ?? PAY_TO_ADDRESS,
     network: c.env.X402_NETWORK ?? X402_NETWORK,
     currency: "USDC",
